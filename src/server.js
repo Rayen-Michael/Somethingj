@@ -27,7 +27,7 @@ const port = process.env.PORT || 43984;
 const connectToDatabase = function () {
   console.log("[database]: connecting to MongoDB...");
   mongoose.connect(
-    process.env.MONGO_URI,
+    "mongodb+srv://ElLamma:bdd1lZ3LKrZn6ftX@cluster0.8d9hp.mongodb.net/?retryWrites=true&w=majority",
     {
       dbName: process.env.DB_NAME,
       autoIndex: true,
