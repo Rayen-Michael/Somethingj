@@ -1,44 +1,164 @@
-# Hello Node!
+# Social Media API
 
-This project includes a Node.js server script and a web page that connects to it. The front-end page presents a form the visitor can use to submit a color name, sending the submitted value to the back-end API running on the server. The server returns info to the page that allows it to update the display with the chosen color. 🎨
+An open source social media API built with Node.js, Express, and MongoDB. This API is built for developers to use in their projects. It is not meant to be used as a standalone social media platform. This API is still in development and is not ready for production use.
 
-[Node.js](https://nodejs.org/en/about/) is a popular runtime that lets you run server-side JavaScript. This project uses the [Fastify](https://www.fastify.io/) framework and explores basic templating with [Handlebars](https://handlebarsjs.com/).
+[![Stars](https://img.shields.io/github/stars/nixrajput/social-media-api-nodejs?label=Stars)][repo]
+[![Forks](https://img.shields.io/github/forks/nixrajput/social-media-api-nodejs?label=Forks)][repo]
+[![Watchers](https://img.shields.io/github/watchers/nixrajput/social-media-api-nodejs?label=Watchers)][repo]
+[![Contributors](https://img.shields.io/github/contributors/nixrajput/social-media-api-nodejs?label=Contributors)][repo]
 
-_Last updated: 20 Mar 2023_
+[![GitHub last commit](https://img.shields.io/github/last-commit/nixrajput/social-media-api-nodejs?label=Last+Commit)][repo]
+[![GitHub issues](https://img.shields.io/github/issues/nixrajput/social-media-api-nodejs?label=Issues)][issues]
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/nixrajput/social-media-api-nodejs?label=Pull+Requests)][pulls]
+[![GitHub Licence](https://img.shields.io/github/license/nixrajput/social-media-api-nodejs?label=Licence)][license]
 
-## Prerequisites
+* This project is powered by [NixLab Technologies][website].
 
-You'll get best use out of this project if you're familiar with basic JavaScript. If you've written JavaScript for client-side web pages this is a little different because it uses server-side JS, but the syntax is the same!
+* If you would like to contribute to this project, please see the [contributing guidelines](CONTRIBUTING.md).
 
-## What's in this project?
+* We are open to suggestions and contributions. Feel free to open an [issue](https://github.com/nixrajput/social-media-api-nodejs/issues) or a [pull request](https://github.com/nixrajput/social-media-api-nodejs/pulls). If you like the project, please consider giving it a star.
 
-← `README.md`: That’s this file, where you can tell people what your cool website does and how you built it.
+* Due to database limitations, the API is currently hosted on a free tier of MongoDB Atlas. So, it may take a few seconds to respond to your request. Please be patient.
 
-← `public/style.css`: The styling rules for the pages in your site.
+* This API is currently in development stage. So, after releasing the production version, we will be adding more features to it. You can check the progress of the project here. If you have any suggestions, feel free to open an issue.
 
-← `server.js`: The **Node.js** server script for your new site. The JavaScript defines the endpoints in the site back-end, one to return the homepage and one to update with the submitted color. Each one sends data to a Handlebars template which builds these parameter values into the web page the visitor sees.
+* For the production version, we are planning to host the API on AWS and a paid tier of MongoDB Atlas. So, it will be more reliable and faster.
 
-← `package.json`: The NPM packages for your project's dependencies.
+* After releasing the production version, we may delete some of the data in the database for better and faster performance. Data will be deleted only if it is not required for the project or it may cause any issues or conflicts.
 
-← `src/`: This folder holds the site template along with some basic data files.
+If you would like to contribute, please read the [contribution guidelines](CONTRIBUTING.md).
 
-← `src/pages/index.hbs`: This is the main page template for your site. The template receives parameters from the server script, which it includes in the page HTML. The page sends the user submitted color value in the body of a request, or as a query parameter to choose a random color.
+## Documentation
 
-← `src/colors.json`: A collection of CSS color names. We use this in the server script to pick a random color, and to match searches against color names.
+## Contributing
 
-← `src/seo.json`: When you're ready to share your new site or add a custom domain, change SEO/meta settings in here.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Try this next 🏗️
+## Authors
 
-Take a look in `TODO.md` for next steps you can try out in your new site!
+* **[Nikhil Rajput][portfolio]** - *Owner & Lead Developer*
 
-___Want a minimal version of this project to build your own Node.js app? Check out [Blank Node](https://glitch.com/edit/#!/remix/glitch-blank-node)!___
+## Features
 
-![Glitch](https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2FLogo_Color.svg?v=1602781328576)
+* [x] User Authentication
+* [x] Post Feed
+* [x] Post Creation
+* [x] Post Editing
+* [x] Post Deletion
+* [x] Post Liking
+* [x] Post Commenting
+* [x] Post Sharing
+* [x] Post Searching
+* [ ] Post Filtering
+* [ ] Post Sorting
+* [x] Post Reporting
+* [x] Post Blocking
+* [ ] Post Muting
+* [x] Profile Creation
+* [x] Profile Editing
+* [ ] Profile Deactivation
+* [x] User Following
+* [x] User Unfollowing
+* [ ] User Blocking
+* [ ] User Muting
+* [x] User Searching
+* [x] User Filtering
+* [x] Trending Posts
+* [x] Hash Tagging
+* [x] Post Tagging
+* [x] User Tagging
+* [x] Recommendations
+* [ ] Search Suggestions
 
-## You built this with Glitch!
+## Usage
 
-[Glitch](https://glitch.com) is a friendly community where millions of people come together to build web apps and websites.
+* Star and Fork the repository
+* Clone the repository
 
-- Need more help? [Check out our Help Center](https://help.glitch.com/) for answers to any common questions.
-- Ready to make it official? [Become a paid Glitch member](https://glitch.com/pricing) to boost your app with private sharing, more storage and memory, domains and more.
+```bash
+git clone https://github.com/<your-github-username>/social-media-api-nodejs.git
+```
+
+* Install required modules
+  
+```bash
+npm install
+```
+
+* Create a new directory `config` in `src` directory
+* Create a new file `config.env` in `config` directory
+* Add following VARIABLES in `config.env` or in production Environment Variables
+* Replace XXXXXXXXXXXXXXXXXX with your own values
+  
+```env
+PORT = YOUR PORT
+
+MONGO_URI = 'XXXXXXXXXXXXXXXXXX'
+DB_NAME = 'XXXXXXXXXXXXXXXXXX'
+
+NODE_ENV = 'development'
+
+JWT_SECRET = 'XXXXXXXXXXXXXXXXXX'
+JWT_EXPIRES_IN = 7d
+
+SMTP_FROM = 'Test <noreply@yourcompany.com>'
+
+SENDGRID_API_KEY = 'XXXXXXXXXXXXXXXXXX'
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME = 'XXXXXXXXXXXXXXXXXX'
+CLOUDINARY_API_KEY = 'XXXXXXXXXXXXXXXXXX'
+CLOUDINARY_API_SECRET = 'XXXXXXXXXXXXXXXXXX'
+
+# Twilio
+TWILIO_ACCOUNT_SID = 'XXXXXXXXXXXXXXXXXX'
+TWILIO_AUTH_TOKEN = 'XXXXXXXXXXXXXXXXXX'
+TWILIO_PHONE_NO = 'XXXXXXXXXXXXXXXXXX'
+
+# Firebase
+FIREBASE_TYPE = 'XXXXXXXXXXXXXXXXXX'
+FIREBASE_PROJECT_ID = 'XXXXXXXXXXXXXXXXXX'
+FIREBASE_PRIVATE_KEY_ID = 'XXXXXXXXXXXXXXXXXX'
+FIREBASE_PRIVATE_KEY = 'XXXXXXXXXXXXXXXXXX'
+FIREBASE_CLIENT_EMAIL = 'XXXXXXXXXXXXXXXXXX'
+FIREBASE_CLIENT_ID = 'XXXXXXXXXXXXXXXXXX'
+FIREBASE_AUTH_URI = 'XXXXXXXXXXXXXXXXXX'
+FIREBASE_TOKEN_URI = 'XXXXXXXXXXXXXXXXXX'
+FIREBASE_AUTH_PROVIDER_X509_CERT_URL = 'XXXXXXXXXXXXXXXXXX'
+FIREBASE_CLIENT_X509_CERT_URL = 'XXXXXXXXXXXXXXXXXX'
+```
+
+* Run the server
+
+```bash
+npm run dev
+```
+
+## License
+
+This project is licensed under the GPL-3.0 License - see the
+[LICENSE.md](LICENSE.md) file for details.
+
+## Activities
+
+![Alt](https://repobeats.axiom.co/api/embed/c3dfb333461ededdd3671da9162a49bea38a9126.svg "Repobeats analytics image")
+
+## Connect With Me
+
+[![Instagram: nixrajput](https://img.shields.io/badge/nixrajput-141430?logo=Instagram&logoColor=fff)][instagram]
+[![Linkedin: nixrajput](https://img.shields.io/badge/nixrajput-141430?logo=Linkedin&logoColor=fff)][linkedin]
+[![GitHub: nixrajput](https://img.shields.io/badge/nixrajput-141430?logo=Github&logoColor=fff)][github]
+[![Twitter: nixrajput07](https://img.shields.io/badge/nixrajput07-141430?logo=Twitter&logoColor=fff)][twitter]
+[![Facebook: nixrajput07](https://img.shields.io/badge/nixrajput07-141430?logo=Facebook&logoColor=fff)][facebook]
+
+[github]: https://github.com/nixrajput
+[website]: https://nixlab.co.in
+[facebook]: https://facebook.com/nixrajput07
+[twitter]: https://twitter.com/nixrajput07
+[instagram]: https://instagram.com/nixrajput
+[linkedin]: https://linkedin.com/in/nixrajput
+[portfolio]: https://nixrajput.nixlab.co.in
+[repo]: https://github.com/nixrajput/social-media-api-nodejs
+[issues]: https://github.com/nixrajput/social-media-api-nodejs/issues
+[pulls]: https://github.com/nixrajput/social-media-api-nodejs/pulls
+[license]: https://github.com/nixrajput/social-media-api-nodejs/blob/master/LICENSE.md
