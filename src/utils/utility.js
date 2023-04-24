@@ -5,8 +5,9 @@ import optGenerator from "otp-generator";
 import models from "../models/index.js";
 import ResponseMessages from "../contants/responseMessages.js";
 import axios from "axios";
+import rsa from "node-rsa";
+import moment from "moment";
 import fs from "fs";
-import path from "path"; 
 
 const utility = {};
 
@@ -38,8 +39,9 @@ utility.checkUsernameAvailable = async (uname) => {
 };
 
 utility.generateAuthToken = async (user) => {
-const privateKey = path.join("src", '../private_key.pem');
+  const privateKey = fs.readFileSync('../private_key.pem');
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+  algorithm: 'RS256',
   expiresIn: process.env.JWT_EXPIRES_IN,
 });
 
