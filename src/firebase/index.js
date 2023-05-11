@@ -1,10 +1,12 @@
 import admin from "firebase-admin";
 import dotenv from "dotenv";
+
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({
     path: "src/config.env",
   });
 }
+
 const privateKey = process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "");
 
 const serviceAccount = {
