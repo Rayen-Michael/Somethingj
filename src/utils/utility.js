@@ -39,7 +39,6 @@ utility.checkUsernameAvailable = async (uname) => {
 utility.generateAuthToken = async (user) => {
   const privateKey = fs.readFileSync('../private_key.pem');
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-  algorithm: 'RS256',
   expiresIn: process.env.JWT_EXPIRES_IN,
 });
 
