@@ -48,8 +48,9 @@ const authToken = await models.AuthToken.create({
   token: token,
   user: user._id,
   expiresAt: decodedData.exp
-});
   
+});
+  console.log(token)
   return authToken;
 }
 
