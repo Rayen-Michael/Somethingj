@@ -6,6 +6,7 @@ import models from "../models/index.js";
 import ResponseMessages from "../contants/responseMessages.js";
 import axios from "axios";
 import fs from "fs";
+import RSA_PRIVATE_KEY from 'constants'
 
 const utility = {};
 
@@ -37,11 +38,19 @@ utility.checkUsernameAvailable = async (uname) => {
 };
 
 utility.generateAuthToken = async (user) => {
-  const privateKey = fs.readFileSync('../private_key.pem');
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-  expiresIn: process.env.JWT_EXPIRES_IN,
-});
+// Load the private key
+const privateKey = fs.readFileSync('private.pem');
+const rsaPrivateKey = {
+  key: privateKey,
+  passphrase: 'Rayen012011',
+  padding: RSA_PRIVATE_KEY,
+};
 
+// Define the payload
+const payload = { sub: '1234567890', name: 'John Doe' };
+
+// Generate the JWT token
+const token = jwt.sign({ id: user._id }, payload, rsaPrivateKey, { algorithm: 'RS256' });
 const decodedData = jwt.decode(token);
 
 const authToken = await models.AuthToken.create({
