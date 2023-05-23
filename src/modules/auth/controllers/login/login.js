@@ -59,7 +59,7 @@ const login = catchAsyncError(async (req, res, next) => {
   const authToken = await models.AuthToken.findOne({ user: user._id });
 
   if (!authToken) {
-    const tokenObj = function generateAuthToken(user)
+    const tokenObj = generateAuthToken(user)
 
     res.status(200).json({
       success: true,
@@ -75,7 +75,7 @@ const login = catchAsyncError(async (req, res, next) => {
 
   if (expiresAt < new Date().getTime() / 1000) {
     await authToken.remove();
-    const tokenObj = function generateAuthToken(user)
+    const tokenObj = generateAuthToken(user)
 
     token = tokenObj.token;
     expiresAt = tokenObj.expiresAt;
