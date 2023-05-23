@@ -37,13 +37,13 @@ utility.checkUsernameAvailable = async (uname) => {
   return true;
 };
 
-utility.generateAuthToken = async (user) => {
+function generateAuthToken(user) {
 // Load the private key
 const privateKey = fs.readFileSync('./src/private_key.pem');
 const rsaPrivateKey = {
-  key: privateKey,
-  passphrase: 'Rayen012011',
-  padding: RSA_PRIVATE_KEY,
+key: privateKey,
+passphrase: 'Rayen012011',
+padding: RSA_PRIVATE_KEY,
 };
 
 // Define the payload
@@ -54,13 +54,13 @@ const token = jwt.sign({ id: user._id }, payload, rsaPrivateKey, { algorithm: 'R
 const decodedData = jwt.decode(token);
 
 const authToken = await models.AuthToken.create({
-  token: token,
-  user: user._id,
-  expiresAt: decodedData.exp
-  
+token: token,
+user: user._id,
+expiresAt: decodedData.exp
 });
-  console.log(token)
-  return authToken;
+
+console.log(token);
+return authToken;
 }
 
 // Delete All expired OTPs
