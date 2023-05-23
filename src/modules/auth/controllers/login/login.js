@@ -61,7 +61,7 @@ const login = catchAsyncError(async (req, res, next) => {
   if (!authToken) {
     const tokenObj = function generateAuthToken(user)
 
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: ResponseMessages.LOGIN_SUCCESS,
       accountStatus: user.accountStatus,
