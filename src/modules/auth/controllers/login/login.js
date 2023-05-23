@@ -4,7 +4,7 @@ import models from "../../../../models/index.js";
 import validators from "../../../../utils/validators.js";
 import ResponseMessages from "../../../../contants/responseMessages.js";
 import utility from "../../../../utils/utility.js";
-import generateAuthToken from "../../../../utils/utility.js";
+import { generateAuthToken } from "../../../../utils/utility.js";
 
 
 /// @route  POST /api/v1/login
@@ -61,9 +61,9 @@ const login = catchAsyncError(async (req, res, next) => {
   const authToken = await models.AuthToken.findOne({ user: user._id });
 
   if (!authToken) {
-    const tokenObj = generateAuthToken(user)
+    const tokenObj = function generateAuthToken(user)
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: ResponseMessages.LOGIN_SUCCESS,
       accountStatus: user.accountStatus,
@@ -77,13 +77,13 @@ const login = catchAsyncError(async (req, res, next) => {
 
   if (expiresAt < new Date().getTime() / 1000) {
     await authToken.remove();
-    const tokenObj = generateAuthToken(user)
+    const tokenObj = function generateAuthToken(user)
 
     token = tokenObj.token;
     expiresAt = tokenObj.expiresAt;
   }
 
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
     message: ResponseMessages.LOGIN_SUCCESS,
     accountStatus: user.accountStatus,
