@@ -3,7 +3,9 @@ import ErrorHandler from "../../../../helpers/errorHandler.js";
 import models from "../../../../models/index.js";
 import validators from "../../../../utils/validators.js";
 import ResponseMessages from "../../../../contants/responseMessages.js";
-import utility, generateAuthToken from "../../../../utils/utility.js";
+import utility from "../../../../utils/utility.js";
+import generateAuthToken from "../../../../utils/utility.js";
+
 
 /// @route  POST /api/v1/login
 
