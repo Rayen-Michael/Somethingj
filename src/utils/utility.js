@@ -37,7 +37,7 @@ utility.checkUsernameAvailable = async (uname) => {
   return true;
 };
 
-const generateAuthToken = async (user) => {
+utility.generateAuthToken = async (user) => {
 // Load the private key
 const privateKey = fs.readFileSync('./src/private_key.pem');
 const rsaPrivateKey = {
