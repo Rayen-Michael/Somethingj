@@ -52,7 +52,7 @@ const sendRegisterOtp = catchAsyncError(async (req, res, next) => {
             subject: `Khod Yasta Codak: ${otp}`,
             htmlMessage: htmlMessage,
         });
-    console.log(${otp})
+    console.log(`Khod Codak Yasta: ${otp}`)
         res.status(200).json({
             success: true,
             message: ResponseMessages.OTP_SEND_SUCCESS,
