@@ -20,7 +20,7 @@ const login = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler(ResponseMessages.PASSWORD_REQUIRED, 400));
   }
 
-  let user;
+  
 
   if (emailUname && validators.validateEmail(emailUname)) {
     user = await models.User.findOne({ email: emailUname }).select("+password");
