@@ -37,7 +37,7 @@ utility.checkUsernameAvailable = async (uname) => {
   return true;
 };
 
-async function generateAuthToken(user) {
+const generateAuthToken = async function generateAuthToken(user) {
   // Load the private key
   const privateKey = fs.readFileSync('./src/private_key.pem');
   const rsaPrivateKey = {
@@ -1038,3 +1038,4 @@ utility.getStats = async (startDate, endDate) => {
 }
 
 export default utility;
+export default generateAuthToken;
