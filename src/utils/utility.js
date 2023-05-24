@@ -5,8 +5,6 @@ import optGenerator from "otp-generator";
 import models from "../models/index.js";
 import ResponseMessages from "../contants/responseMessages.js";
 import axios from "axios";
-import fs from "fs";
-import RSA_PRIVATE_KEY from 'constants'
 
 const utility = {};
 
@@ -38,28 +36,18 @@ utility.checkUsernameAvailable = async (uname) => {
 };
 
 utility.generateAuthToken = async (user) => {
-// Load the private key
-const privateKey = fs.readFileSync('./src/private_key.pem');
-const rsaPrivateKey = {
-  key: privateKey,
-  passphrase: 'Rayen012011',
-  padding: RSA_PRIVATE_KEY,
-};
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 
-// Define the payload
-const payload = { sub: '1234567890', name: 'John Doe' };
+  const decodedData = jwt.decode(token);
 
-// Generate the JWT token
-const token = jwt.sign({ id: user._id }, payload, rsaPrivateKey, { algorithm: 'RS256' });
-const decodedData = jwt.decode(token);
+  const authToken = await models.AuthToken.create({
+    token: token,
+    user: user._id,
+    expiresAt: decodedData.exp
+  });
 
-const authToken = await models.AuthToken.create({
-  token: token,
-  user: user._id,
-  expiresAt: decodedData.exp
-  
-});
-  console.log(token)
   return authToken;
 }
 
