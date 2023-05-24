@@ -4,8 +4,6 @@ import models from "../../../../models/index.js";
 import validators from "../../../../utils/validators.js";
 import ResponseMessages from "../../../../contants/responseMessages.js";
 import utility from "../../../../utils/utility.js";
-import { generateAuthToken } from "../../../../utils/utility.js";
-
 
 /// @route  POST /api/v1/login
 
@@ -19,9 +17,8 @@ const login = catchAsyncError(async (req, res, next) => {
   if (!password) {
     return next(new ErrorHandler(ResponseMessages.PASSWORD_REQUIRED, 400));
   }
-  let user;
 
-  
+  let user;
 
   if (emailUname && validators.validateEmail(emailUname)) {
     user = await models.User.findOne({ email: emailUname }).select("+password");
@@ -62,9 +59,9 @@ const login = catchAsyncError(async (req, res, next) => {
   const authToken = await models.AuthToken.findOne({ user: user._id });
 
   if (!authToken) {
-    const tokenObj = generateAuthToken(user)
+    const tokenObj = await utility.generateAuthToken(user);
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: ResponseMessages.LOGIN_SUCCESS,
       accountStatus: user.accountStatus,
@@ -78,13 +75,13 @@ const login = catchAsyncError(async (req, res, next) => {
 
   if (expiresAt < new Date().getTime() / 1000) {
     await authToken.remove();
-    const tokenObj = generateAuthToken(user)
+    const tokenObj = await utility.generateAuthToken(user);
 
     token = tokenObj.token;
     expiresAt = tokenObj.expiresAt;
   }
 
-  return res.status(200).json({
+  res.status(200).json({
     success: true,
     message: ResponseMessages.LOGIN_SUCCESS,
     accountStatus: user.accountStatus,
