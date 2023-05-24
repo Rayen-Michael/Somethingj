@@ -1037,5 +1037,4 @@ utility.getStats = async (startDate, endDate) => {
   };
 }
 
-export default utility;
-export default generateAuthToken;
+export default utility, generateAuthToken;
