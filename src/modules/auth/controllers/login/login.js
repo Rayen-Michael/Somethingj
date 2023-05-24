@@ -19,6 +19,7 @@ const login = catchAsyncError(async (req, res, next) => {
   if (!password) {
     return next(new ErrorHandler(ResponseMessages.PASSWORD_REQUIRED, 400));
   }
+  let user;
 
   
 
@@ -59,7 +60,6 @@ const login = catchAsyncError(async (req, res, next) => {
   }
 
   const authToken = await models.AuthToken.findOne({ user: user._id });
-  let user;
 
   if (!authToken) {
     const tokenObj = generateAuthToken(user)
