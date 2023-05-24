@@ -59,7 +59,7 @@ const login = catchAsyncError(async (req, res, next) => {
   }
 
   const authToken = await models.AuthToken.findOne({ user: user._id });
-  let user = await models.User.findOne({ uname });
+  let user;
 
   if (!authToken) {
     const tokenObj = generateAuthToken(user)
