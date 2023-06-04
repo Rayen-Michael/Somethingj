@@ -3,7 +3,14 @@ import jwt from "jsonwebtoken";
 import url from "url";
 import wsController from "./websocket/wsController.js";
 import models from "./models/index.js";
-
+import constants from "constants"
+// Load the private key
+const privateKey = fs.readFileSync('private.pem');
+const rsaPrivateKey = {
+  key: privateKey,
+  passphrase: 'Rayen012011',
+  padding: RSA_PRIVATE_KEY,
+};
 const port = process.env.PORT || 4000;
 
 const initWebSocket = (server) => {
@@ -51,7 +58,8 @@ const initWebSocket = (server) => {
             ws.close();
         } else {
             try {
-                let decoded = jwt.verify(token, process.env.JWT_SECRET);
+                const payload = { sub: '1234567890', name: 'John Doe' };
+                let decoded = jwt.sign(payload, rsaPrivateKey, { algorithm: 'RS256' });
                 ws.userId = decoded.id;
                 ws.token = token;
 
@@ -123,7 +131,7 @@ const initWebSocket = (server) => {
         }
 
         ws.on("message", async (message) => {
-            jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+            jwt.verify(token, rsaPrivateKey, (err, decoded) => {
                 if (err) {
                     client.send(
                         JSON.stringify({
