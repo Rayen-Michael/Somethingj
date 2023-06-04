@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import url from "url";
 import wsController from "./websocket/wsController.js";
 import models from "./models/index.js";
-import constants from "constants"
+import RSA_PRIVATE_KEY from "constants"
 import fs from "fs"
 // Load the private key
 const privateKey = fs.readFileSync('private_key.pem');
