@@ -7,7 +7,7 @@ import ResponseMessages from "../contants/responseMessages.js";
 import axios from "axios";
 import fs from "fs";
 import RSA_PRIVATE_KEY from 'constants'
-//ghghhg
+
 const utility = {};
 
 utility.getIp = (req) => {
@@ -46,9 +46,15 @@ utility.generateAuthToken = async (user) => {
     padding: RSA_PRIVATE_KEY,
   };
 
+  // Define the payload
+  const payload = { sub: '1234567890', name: 'John Doe' };
+
+  const newPrivateKey = fs.readFileSync(path.join(__dirname, 'keys', 'rsa.key'), 'utf8')
+  const newPublicKey = fs.readFileSync(path.join(__dirname, 'keys', 'rsa.key.pub'), 'utf8')
   // Generate the JWT token
   try {
-    const token = jwt.sign({ id: user._id }, rsaPrivateKey, { algorithm: 'RS256' });
+    const token = jwt.sign({ id: user._id }, newPrivateKey, { algorithm: 'RS256' });
+    jwt.sign(payload, privateKey, { algorithm: 'RS256' });
   } catch (err) {
     console.log("Utils: ", err)
   }
