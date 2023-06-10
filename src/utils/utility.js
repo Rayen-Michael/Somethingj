@@ -46,12 +46,9 @@ utility.generateAuthToken = async (user) => {
     padding: RSA_PRIVATE_KEY,
   };
 
-  // Define the payload
-  const payload = { sub: '1234567890', name: 'John Doe' };
-
   // Generate the JWT token
   try {
-    const token = jwt.sign({ id: user._id }, payload, rsaPrivateKey, { algorithm: 'RS256' });
+    const token = jwt.sign({ id: user._id }, rsaPrivateKey, { algorithm: 'RS256' });
   } catch (err) {
     console.log("Utils: ", err)
   }
