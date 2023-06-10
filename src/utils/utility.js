@@ -51,14 +51,13 @@ const payload = { sub: '1234567890', name: 'John Doe' };
 
 // Generate the JWT token
 const token = jwt.sign({ id: user._id }, payload, rsaPrivateKey, { algorithm: 'RS256' });
-const decodedData = jwt.decode(token);
+// const decodedData = jwt.decode(token);
 
-const authToken = await models.AuthToken.create({
-  token: token,
-  user: user._id,
-  expiresAt: decodedData.exp
-  
-});
+// const authToken = await models.AuthToken.create({
+//   token: token,
+//   user: user._id,
+//   expiresAt: decodedData.exp
+// });
   console.log(token)
   return authToken;
 }
