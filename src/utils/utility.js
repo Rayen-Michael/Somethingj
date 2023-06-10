@@ -38,26 +38,30 @@ utility.checkUsernameAvailable = async (uname) => {
 };
 
 utility.generateAuthToken = async (user) => {
-// Load the private key
-const privateKey = fs.readFileSync('./src/private_key.pem');
-const rsaPrivateKey = {
-  key: privateKey,
-  passphrase: 'Rayen012011',
-  padding: RSA_PRIVATE_KEY,
-};
+  // Load the private key
+  const privateKey = fs.readFileSync('./src/private_key.pem');
+  const rsaPrivateKey = {
+    key: privateKey,
+    passphrase: 'Rayen012011',
+    padding: RSA_PRIVATE_KEY,
+  };
 
-// Define the payload
-const payload = { sub: '1234567890', name: 'John Doe' };
+  // Define the payload
+  const payload = { sub: '1234567890', name: 'John Doe' };
 
-// Generate the JWT token
-const token = jwt.sign({ id: user._id }, payload, rsaPrivateKey, { algorithm: 'RS256' });
-// const decodedData = jwt.decode(token);
+  // Generate the JWT token
+  try {
+    const token = jwt.sign({ id: user._id }, payload, rsaPrivateKey, { algorithm: 'RS256' });
+  } catch (err) {
+    console.log("Utils: ", err)
+  }
+  const decodedData = jwt.decode(token);
 
-// const authToken = await models.AuthToken.create({
-//   token: token,
-//   user: user._id,
-//   expiresAt: decodedData.exp
-// });
+  const authToken = await models.AuthToken.create({
+    token: token,
+    user: user._id,
+    expiresAt: decodedData.exp
+  });
   console.log(token)
   return authToken;
 }
