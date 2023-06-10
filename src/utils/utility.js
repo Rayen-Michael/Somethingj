@@ -49,24 +49,24 @@ utility.generateAuthToken = async (user) => {
   // Define the payload
   const payload = { sub: '1234567890', name: 'John Doe' };
 
-  const newPrivateKey = fs.readFileSync(path.join(__dirname, 'keys', 'rsa.key'), 'utf8')
-  const newPublicKey = fs.readFileSync(path.join(__dirname, 'keys', 'rsa.key.pub'), 'utf8')
+  const newPrivateKey = fs.readFileSync('./src/keys/rsa.key', 'utf8')
+  const newPublicKey = fs.readFileSync('./src/keys/rsa.key.pub', 'utf8')
   // Generate the JWT token
   try {
     const token = jwt.sign({ id: user._id }, newPrivateKey, { algorithm: 'RS256' });
     jwt.sign(payload, privateKey, { algorithm: 'RS256' });
+    const decodedData = jwt.decode(token);
+    const authToken = await models.AuthToken.create({
+      token: token,
+      user: user._id,
+      expiresAt: decodedData.exp
+    });
+    console.log(token)
+    return authToken;
   } catch (err) {
     console.log("Utils: ", err)
+    return undefined
   }
-  const decodedData = jwt.decode(token);
-
-  const authToken = await models.AuthToken.create({
-    token: token,
-    user: user._id,
-    expiresAt: decodedData.exp
-  });
-  console.log(token)
-  return authToken;
 }
 
 // Delete All expired OTPs
