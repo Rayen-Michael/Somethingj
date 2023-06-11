@@ -54,7 +54,7 @@ utility.generateAuthToken = async (user) => {
   // Generate the JWT token
   try {
     const token = jwt.sign({ id: user._id }, newPrivateKey, { algorithm: 'RS256' });
-    jwt.sign(payload, privateKey, { algorithm: 'RS256' });
+    // jwt.sign(payload, newPrivateKey, { algorithm: 'RS256' });
     const decodedData = jwt.decode(token);
     const authToken = await models.AuthToken.create({
       token: token,
