@@ -60,7 +60,6 @@ const login = catchAsyncError(async (req, res, next) => {
 
   if (!authToken) {
     const tokenObj = await utility.generateAuthToken(user);
-
     return res.status(200).json({
       success: true,
       message: ResponseMessages.LOGIN_SUCCESS,
@@ -80,7 +79,7 @@ const login = catchAsyncError(async (req, res, next) => {
     token = tokenObj.token;
     expiresAt = tokenObj.expiresAt;
   }
-
+  console.log(expiresAt)
   res.status(200).json({
     success: true,
     message: ResponseMessages.LOGIN_SUCCESS,

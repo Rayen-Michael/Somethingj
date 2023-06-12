@@ -53,15 +53,13 @@ utility.generateAuthToken = async (user) => {
   const newPublicKey = fs.readFileSync('./src/keys/rsa.key.pub', 'utf8')
   // Generate the JWT token
   try {
-    const token = jwt.sign({ id: user._id }, newPrivateKey, { algorithm: 'RS256' });
-    // jwt.sign(payload, newPrivateKey, { algorithm: 'RS256' });
+    const token = jwt.sign({ id: user._id }, newPrivateKey, { algorithm: 'RS256', expiresIn: '90d' });
     const decodedData = jwt.decode(token);
     const authToken = await models.AuthToken.create({
       token: token,
       user: user._id,
       expiresAt: decodedData.exp
     });
-    console.log(token)
     return authToken;
   } catch (err) {
     console.log("Utils: ", err)
