@@ -3,6 +3,7 @@ import ErrorHandler from "../helpers/errorHandler.js";
 import catchAsyncError from "../helpers/catchAsyncError.js";
 import models from "../models/index.js";
 import ResponseMessages from "../contants/responseMessages.js";
+import fs from 'fs';
 
 const authMiddleware = {};
 
@@ -23,9 +24,9 @@ authMiddleware.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
   try {
     /// decodedData is an object that will be used to store 
     /// the decoded data from the token
-    const decodedData = jwt.verify(token, process.env.JWT_SECRET);
-
-    // console.log(decodedData);
+    const newPublicKey = fs.readFileSync('./src/keys/rsa.key.pub', 'utf8')
+    const decodedData = jwt.verify(token, newPublicKey);
+    // console.log(decodedData)
 
     const authToken = await models.AuthToken.findOne({
       token: token,
@@ -37,7 +38,7 @@ authMiddleware.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
     }
 
     const user = await models.User.findById(decodedData.id);
-
+    // console.log(user);
     if (!user.isValid) {
       return res.status(401).json({
         success: false,
