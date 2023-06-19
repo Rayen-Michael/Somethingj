@@ -5,9 +5,7 @@ import optGenerator from "otp-generator";
 import models from "../models/index.js";
 import ResponseMessages from "../contants/responseMessages.js";
 import axios from "axios";
-import fs from "fs";
-import RSA_PRIVATE_KEY from 'constants'
-//hhhhhhhhhhhhhhhhh
+
 const utility = {};
 
 utility.getIp = (req) => {
@@ -38,41 +36,19 @@ utility.checkUsernameAvailable = async (uname) => {
 };
 
 utility.generateAuthToken = async (user) => {
-  // Replace with your own private key file path
-const privateKeyPath = '../private_key.key';
+  const token = jwt.sign({ id: user._id }, "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY3OTMwNzQwMSwiaWF0IjoxNjc5MzA3NDAxfQ.VaLX6K8XSoWOQFtqUtDRzZZhxi1pHvJpAO93d_WbIFY", {
+    expiresIn: "90d",
+  });
 
-// Replace with your desired payload data
-const payload = {
-  userId: '123456789',
-  username: 'john.doe',
-};
+  const decodedData = jwt.decode(token);
 
-// Load the private key
-const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
+  const authToken = await models.AuthToken.create({
+    token: token,
+    user: user._id,
+    expiresAt: decodedData.exp
+  });
 
-// Set the JWT options
-const signOptions = {
-  algorithm: 'RS256',  // RSA algorithm with SHA-256
-  expiresIn: '90d',     // Token expiration time
-};
-
-// Sign the JWT
-const token = jwt.sign(payload, privateKey, signOptions);
-
-// Print the generated token
-console.log('Generated token:', token);
-  // Generate the JWT token
-  try {
-    const authToken = await models.AuthToken.create({
-      token: token,
-      user: user._id,
-      expiresAt: decodedData.exp
-    });
-    return authToken;
-  } catch (err) {
-    console.log("Utils: ", err)
-    return undefined
-  }
+  return authToken;
 }
 
 // Delete All expired OTPs
