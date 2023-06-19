@@ -36,8 +36,6 @@ utility.checkUsernameAvailable = async (uname) => {
 };
 
 utility.generateAuthToken = async (user) => {
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
 
 // Replace with your own private key file path
 const privateKeyPath = '../private_key.key';
