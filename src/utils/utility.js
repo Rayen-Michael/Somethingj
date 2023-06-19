@@ -39,7 +39,7 @@ utility.checkUsernameAvailable = async (uname) => {
 utility.generateAuthToken = async (user) => {
 
 // Replace with your own private key file path
-const privateKeyPath = '../src/private_key.key';
+const privateKeyPath = './src/private_key.key';
 
 // Replace with your desired payload data
 const payload = {
