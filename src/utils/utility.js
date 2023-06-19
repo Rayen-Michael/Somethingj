@@ -36,8 +36,8 @@ utility.checkUsernameAvailable = async (uname) => {
 };
 
 utility.generateAuthToken = async (user) => {
-  const token = jwt.sign({ id: user._id }, "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY3OTMwNzQwMSwiaWF0IjoxNjc5MzA3NDAxfQ.VaLX6K8XSoWOQFtqUtDRzZZhxi1pHvJpAO93d_WbIFY", {
-    expiresIn: "90d",
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
   const decodedData = jwt.decode(token);
