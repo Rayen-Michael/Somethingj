@@ -36,24 +36,29 @@ utility.checkUsernameAvailable = async (uname) => {
 };
 
 utility.generateAuthToken = async (user) => {
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
+
+// Replace with your own private key file path
+const privateKeyPath = '../private_key.key';
+
 // Replace with your desired payload data
 const payload = {
-  Role: 'Admin',
-  Issuer: 'Issuer',
-  Username: 'JohnDoe',
+  userId: '123456789',
+  username: 'john.doe',
 };
 
-// Replace with your own secret key
-const secretKey = '../private_key.key';
+// Load the private key
+const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
 
 // Set the JWT options
 const signOptions = {
-  algorithm: 'HS256',  // HMAC-SHA256 algorithm
+  algorithm: 'RS256',  // RSA algorithm with SHA-256
   expiresIn: '90d',     // Token expiration time
 };
 
 // Sign the JWT
-const token = jwt.sign(payload, secretKey, signOptions);
+const token = jwt.sign(payload, privateKey, signOptions);
 
 // Print the generated token
 console.log('Generated token:', token);
