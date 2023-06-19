@@ -5,6 +5,7 @@ import optGenerator from "otp-generator";
 import models from "../models/index.js";
 import ResponseMessages from "../contants/responseMessages.js";
 import axios from "axios";
+import fs from "fs";
 
 const utility = {};
 
