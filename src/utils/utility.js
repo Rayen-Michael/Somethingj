@@ -36,9 +36,27 @@ utility.checkUsernameAvailable = async (uname) => {
 };
 
 utility.generateAuthToken = async (user) => {
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  });
+// Replace with your desired payload data
+const payload = {
+  Role: 'Admin',
+  Issuer: 'Issuer',
+  Username: 'JohnDoe',
+};
+
+// Replace with your own secret key
+const secretKey = '../private_key.key';
+
+// Set the JWT options
+const signOptions = {
+  algorithm: 'HS256',  // HMAC-SHA256 algorithm
+  expiresIn: '90d',     // Token expiration time
+};
+
+// Sign the JWT
+const token = jwt.sign(payload, secretKey, signOptions);
+
+// Print the generated token
+console.log('Generated token:', token);
 
   const decodedData = jwt.decode(token);
 
